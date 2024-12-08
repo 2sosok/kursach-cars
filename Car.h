@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -7,40 +7,40 @@ using namespace sf;
 class Car : public Drawable
 {
 public:
-    Car();
-    Texture Car_Texture;
-    Sprite s;
-    float posX;
-    float posY;
-    float speed = 18;
-    int points = 0;
-    float rnd;
-    bool a = 0;
+	Car(float posX);
+	Texture Car_Texture;
+	Sprite s;
+	float posX;
+	float posY;
+	float speed = 18;
+	int points = 0;
+	float rnd;
+	bool a = 0;
 
 
-    void Falling();
-    void Spawn();
-    void AddPoints();
-    bool ChceckCollision(float x, float y);
-    void Reset();
-    void restart();
+	void Falling();
+	void Spawn();
+	void AddPoints();
+	bool ChceckCollision(float x, float y);
+	void Reset();
+	void restart();
 private:
-    Sprite m_sprite;
-    Texture m_texture;
-    VertexArray m_vertices;
+	Sprite m_sprite;
+	Texture m_texture;
+	VertexArray m_vertices;
 
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
-    {
-        target.draw(m_sprite, states);
-        states.texture = &m_texture;
-        target.draw(m_vertices, states);
-    }
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
+	{
+		target.draw(m_sprite, states);
+		states.texture = &m_texture;
+		target.draw(m_vertices, states);
+	}
 
 };
-Car::Car()
+Car::Car(float posX)
 {
-	Car_Texture.loadFromFile("D:/_��++_/kursach oop/images/Enemy.png");
-	
+	Car_Texture.loadFromFile("D:/_Си++_/kursach cars/Images/enemy.png");
+
 
 	s.setTexture(Car_Texture);
 	s.setScale(0.5f, 0.5f);
@@ -49,9 +49,8 @@ Car::Car()
 	s.setRotation(180);
 
 	posY = 0;
-
+	this->posX = posX;
 	rnd = rand() % 6 + 1;
-	a = 0;
 	Spawn();
 }
 
@@ -61,8 +60,6 @@ void Car::Falling()
 
 	if (posY < 1200)
 	{
-		a = 0;
-
 		s.setPosition(posX, posY + speed);
 	}
 
@@ -70,11 +67,6 @@ void Car::Falling()
 	{
 		Spawn();
 
-		if (a == 0)
-		{
-			AddPoints();
-			a = 1;
-		}
 	}
 }
 
@@ -111,12 +103,20 @@ void Car::Spawn()
 
 }
 
-bool Car::ChceckCollision(float x, float y)
+bool Car::ChceckCollision(float playerX, float playerY)
 {
-	if (this->posY >= y and this->posY < y + 135 and this->posX < x + 65 and this->posX > x - 65)
+	// Проверка столкновения с игроком
+	const float carWidth = 65; // Ширина машины (на основании вашего условия)
+	const float carHeight = 135; // Высота машины (на основании вашего условия)
+
+	// Проверка, пересекаются ли прямоугольники машины и игрока
+	if (this->posX < playerX + carWidth && this->posX + carWidth > playerX &&  // по оси X
+		this->posY < playerY + carHeight && this->posY + carHeight > playerY)  // по оси Y
 	{
 		return true;
 	}
+
+	return false;
 }
 
 void Car::Reset() {

@@ -50,11 +50,11 @@ int main()
     
     Player player;
 
-    Car car1;
-    Car car2;
-    Car car3;
-    Car car4;
-    Car car5;
+    Car car1(90);
+    Car car2(180);
+    Car car3(270);
+    Car car4(360);
+    Car car5(450);
 
 
 
@@ -215,7 +215,7 @@ int main()
         if (current_state==MENU) {//Combine the conditions
             menu(window);
         }
-        else if (current_state==GAMMING) {
+        if (current_state==GAMMING) {
 
             // Обновление состояния машин
             car1.Falling();
@@ -243,30 +243,40 @@ int main()
 
             if (car1.ChceckCollision(player.pos, player.High) == true)
             {
+                resetGame(player, car1,car2, car3,car4, car5);
+                navigate.play();
                 current_state = MENU;
             }
 
             if (car2.ChceckCollision(player.pos, player.High) == true)
             {
+                resetGame(player, car1, car2, car3, car4, car5);
+                navigate.play();
                 current_state = MENU;
             }
 
             if (car3.ChceckCollision(player.pos, player.High) == true)
             {
+                resetGame(player, car1, car2, car3, car4, car5);
+                navigate.play();
                 current_state = MENU;
-
             }
 
             if (car4.ChceckCollision(player.pos, player.High) == true)
             {
+                resetGame(player, car1, car2, car3, car4, car5);
+                navigate.play();
                 current_state = MENU;
             }
 
             if (car5.ChceckCollision(player.pos, player.High) == true)
             {
+                resetGame(player, car1, car2, car3, car4, car5);
+                navigate.play();
                 current_state = MENU;
             }
             
+
         }
 
 

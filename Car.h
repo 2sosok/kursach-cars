@@ -65,6 +65,7 @@ void Car::Falling()
 
 	if (posY >= 1198)
 	{
+		AddPoints();
 		Spawn();
 
 	}

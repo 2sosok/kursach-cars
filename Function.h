@@ -78,6 +78,11 @@ void draw_menu(sf::RenderWindow& window) {
 
 		text_menu_items.at(0).setString(menu_items.at(0) = "Start new game");
 
+		
+		if (gamepaused) {
+			text_menu_items.at(0).setString(menu_items.at(0) = "Continue");
+
+		}
 
 
 		text_menu_items.at(i).setPosition(window_width / 2 - 150, current_menu_item_offset_y + 500);

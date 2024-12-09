@@ -78,3 +78,5 @@ Sound navigate;
 Texture Background_Texture, Bar_Texture;
 Sprite Background, Bar;
 
+Font font_score;
+Text score;

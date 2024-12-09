@@ -27,17 +27,17 @@ void resetGame(Player& player, Car& car1, Car& car2, Car& car3, Car& car4, Car& 
 
 void menu(sf::RenderWindow& window)
 {
-    switch (current_menu) {
-    case MENU_MAIN:
-        draw_menu(window);
-        //navigate.play();
-        break;
-    case MENU_SETTINGS:
-        draw_settings_menu(window);
-        break;
+        switch (current_menu) {
+        case MENU_MAIN:
+            draw_menu(window);
+            //navigate.play();
+            break;
+        case MENU_SETTINGS:
+            draw_settings_menu(window);
+            break;
 
-    default: navigate.play(); break;
-    }
+        default: navigate.play(); break;
+        }
 }
 
 
@@ -96,8 +96,11 @@ int main()
                                     current_state = GAMMING;
                                 }
 
-
-                                if (menu_items.at(current_main_menu_item_index) == "Settings") {
+                                if (menu_items.at(current_main_menu_item_index) == "Continue") {
+                                    gamepaused = false;
+                                    current_state = GAMMING;
+                                }
+                                    if (menu_items.at(current_main_menu_item_index) == "Settings") {
                                     current_menu = MENU_SETTINGS;
                                     navigate.play();
                                 }
@@ -198,25 +201,25 @@ int main()
                         }
 
                     }
-                    if (current_state == GAMMING) {
-                        switch (basics.key.code) {
-                        case sf::Keyboard::Escape:
-                            current_state = MENU;
-                        }
-                    }
+                    
+                }
+            }
+            if (current_state == GAMMING) {
+                switch (basics.key.code) {
+                case sf::Keyboard::Escape:
+                    current_state = MENU;
+                    gamepaused = true;
                 }
             }
         }
         window.setFramerateLimit(60);
 
         set_volume();
-
         
         if (current_state==MENU) {//Combine the conditions
             menu(window);
         }
-        if (current_state==GAMMING) {
-
+        if (current_state==GAMMING and !gamepaused) {
             // Обновление состояния машин
             car1.Falling();
             car2.Falling();
@@ -276,9 +279,9 @@ int main()
                 current_state = MENU;
             }
             
-
+            
         }
-
+       
 
         window.display();
         
